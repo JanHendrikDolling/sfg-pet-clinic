@@ -24,21 +24,36 @@ public class DataLoader implements CommandLineRunner {
     private final AddressService addressService;
     private final ContactInformationService contactInformationservice;
     private final PetService petService;
+    private final SpecialityService specialityService;
 
-    public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService, AddressService addressService, ContactInformationService contactInformationservice, PetService petService) {
+    public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService, AddressService addressService, ContactInformationService contactInformationservice, PetService petService, SpecialityService specialityService) {
         this.ownerService = ownerService;
         this.vetService = vetService;
         this.petTypeService = petTypeService;
         this.addressService = addressService;
         this.contactInformationservice = contactInformationservice;
         this.petService = petService;
+        this.specialityService = specialityService;
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
+        final int count = petTypeService.findAll().size();
+        if (count == 0) {
+            loadData();
+        }
+    }
+
+    @SuppressWarnings("unused")
+    private void loadData() {
         PetType dog = createPetType("Dog");
         PetType cat = createPetType("Cat");
         LOGGER.info("Loaded PetTypes...");
+
+        Speciality radiology = getSpeciality("Radiology");
+        Speciality surgery = getSpeciality("Surgery");
+        Speciality dentistry = getSpeciality("Dentistry");
+        LOGGER.info("Loaded Specialities...");
 
         Address hamburg = createAddress("street hh", "HH");
         Address berlin = createAddress("street Berlin", "Berlin");
@@ -61,9 +76,15 @@ public class DataLoader implements CommandLineRunner {
         petService.save(catty);
         LOGGER.info("Loaded Pets...");
 
-        Vet sam = createVet("Sam", "Axe");
-        Vet jessie = createVet("Jessie", "Porter");
+        Vet sam = createVet("Sam", "Axe", Stream.of(radiology).collect(Collectors.toSet()));
+        Vet jessie = createVet("Jessie", "Porter", Stream.of(surgery).collect(Collectors.toSet()));
         LOGGER.info("Loaded Vets...");
+    }
+
+    private Speciality getSpeciality(String radiology) {
+        Speciality speciality = new Speciality();
+        speciality.setDescription(radiology);
+        return specialityService.save(speciality);
     }
 
 
@@ -75,10 +96,11 @@ public class DataLoader implements CommandLineRunner {
         return pet;
     }
 
-    private Vet createVet(String firstName, String lastName) {
+    private Vet createVet(String firstName, String lastName, Set<Speciality> specialities) {
         Vet vet = new Vet();
         vet.setFirstName(firstName);
         vet.setLastName(lastName);
+        vet.setSpecialities(specialities);
         return vetService.save(vet);
     }
 

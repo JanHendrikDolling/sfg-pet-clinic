@@ -2,12 +2,13 @@ package it.dolling.tryout.sfgpetclinic.services.map;
 
 import it.dolling.tryout.sfgpetclinic.model.BaseEntity;
 import it.dolling.tryout.sfgpetclinic.services.CrudService;
+import org.apache.commons.lang3.Validate;
 
 import java.util.*;
 
-public abstract class AbstractMapService<T extends BaseEntity, ID extends Long> implements CrudService<T, ID> {
+public abstract class AbstractMapService<T extends BaseEntity, I extends Long> implements CrudService<T, I> {
 
-    protected Map<Long, T> map = new HashMap<>();
+    private Map<Long, T> map = new HashMap<>();
 
     @Override
     public Set<T> findAll() {
@@ -15,13 +16,13 @@ public abstract class AbstractMapService<T extends BaseEntity, ID extends Long> 
     }
 
     @Override
-    public T findById(ID id) {
+    public T findById(I id) {
         return map.get(id);
     }
 
     @Override
     public T save(T object) {
-        Objects.requireNonNull(object, "can't save null object");
+        Validate.notNull(object, "can't save null object");
         if (object.getId() == null) {
             object.setId(getNextId());
         }
@@ -29,7 +30,7 @@ public abstract class AbstractMapService<T extends BaseEntity, ID extends Long> 
         return object;
     }
 
-    void deleteById(ID id) {
+    void deleteById(I id) {
         map.remove(id);
     }
 

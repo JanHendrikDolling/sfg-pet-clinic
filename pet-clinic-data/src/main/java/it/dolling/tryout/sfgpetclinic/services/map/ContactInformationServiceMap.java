@@ -3,9 +3,8 @@ package it.dolling.tryout.sfgpetclinic.services.map;
 import it.dolling.tryout.sfgpetclinic.model.ContactInformation;
 import it.dolling.tryout.sfgpetclinic.services.AddressService;
 import it.dolling.tryout.sfgpetclinic.services.ContactInformationService;
+import org.apache.commons.lang3.Validate;
 import org.springframework.stereotype.Service;
-
-import java.util.Objects;
 
 @Service
 public class ContactInformationServiceMap extends AbstractMapService<ContactInformation, Long> implements ContactInformationService {
@@ -19,7 +18,7 @@ public class ContactInformationServiceMap extends AbstractMapService<ContactInfo
 
     @Override
     public ContactInformation save(ContactInformation contactInformation) {
-        Objects.requireNonNull(contactInformation, "can't save null object");
+        Validate.notNull(contactInformation, "can't save null object");
         if (contactInformation.getAddress() != null) {
             contactInformation.setAddress(addressService.save(contactInformation.getAddress()));
         }

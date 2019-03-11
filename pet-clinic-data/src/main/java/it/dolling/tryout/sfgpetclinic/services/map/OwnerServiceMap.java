@@ -5,11 +5,11 @@ import it.dolling.tryout.sfgpetclinic.model.Pet;
 import it.dolling.tryout.sfgpetclinic.services.ContactInformationService;
 import it.dolling.tryout.sfgpetclinic.services.OwnerService;
 import it.dolling.tryout.sfgpetclinic.services.PetService;
+import org.apache.commons.lang3.Validate;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.NoSuchElementException;
-import java.util.Objects;
 import java.util.Set;
 
 @Service
@@ -25,7 +25,7 @@ public class OwnerServiceMap extends AbstractMapService<Owner, Long> implements 
 
     @Override
     public Owner save(Owner owner) {
-        Objects.requireNonNull(owner, "can't save null object");
+        Validate.notNull(owner, "can't save null object");
         if (owner.getPets() != null) {
             Set<Pet> pets = new HashSet<>();
             owner.getPets().forEach(pet -> {
