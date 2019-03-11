@@ -1,8 +1,10 @@
 package it.dolling.tryout.sfgpetclinic.bootstrap;
 
 import it.dolling.tryout.sfgpetclinic.model.Owner;
+import it.dolling.tryout.sfgpetclinic.model.PetType;
 import it.dolling.tryout.sfgpetclinic.model.Vet;
 import it.dolling.tryout.sfgpetclinic.services.OwnerService;
+import it.dolling.tryout.sfgpetclinic.services.PetTypeService;
 import it.dolling.tryout.sfgpetclinic.services.VetService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,14 +18,20 @@ public class DataLoader implements CommandLineRunner {
 
     private final OwnerService ownerService;
     private final VetService vetService;
+    private final PetTypeService petTypeService;
 
-    public DataLoader(OwnerService ownerService, VetService vetService) {
+    public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService) {
         this.ownerService = ownerService;
         this.vetService = vetService;
+        this.petTypeService = petTypeService;
     }
 
     @Override
     public void run(String... args) throws Exception {
+
+        PetType dog = createPetType("Dog");
+        PetType cat = createPetType("Cat");
+
         Owner michael = new Owner();
         michael.setFirstName("Michael");
         michael.setLastName("Weston");
@@ -47,5 +55,11 @@ public class DataLoader implements CommandLineRunner {
         vetService.save(jessie);
 
         LOGGER.info("Loaded Vets...");
+    }
+
+    private PetType createPetType(String name) {
+        PetType dog = new PetType();
+        dog.setName(name);
+        return petTypeService.save(dog);
     }
 }
