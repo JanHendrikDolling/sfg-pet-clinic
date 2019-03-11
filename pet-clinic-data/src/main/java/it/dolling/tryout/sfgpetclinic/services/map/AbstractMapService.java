@@ -1,16 +1,14 @@
 package it.dolling.tryout.sfgpetclinic.services.map;
 
+import com.sun.istack.internal.NotNull;
 import it.dolling.tryout.sfgpetclinic.model.BaseEntity;
 import it.dolling.tryout.sfgpetclinic.services.CrudService;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
-public abstract class AbstractMapService<T extends BaseEntity<ID>, ID> implements CrudService<T, ID> {
+public abstract class AbstractMapService<T extends BaseEntity, ID extends Long> implements CrudService<T, ID> {
 
-    protected Map<ID, T> map = new HashMap<>();
+    protected Map<Long, T> map = new HashMap<>();
 
     @Override
     public Set<T> findAll() {
@@ -23,12 +21,11 @@ public abstract class AbstractMapService<T extends BaseEntity<ID>, ID> implement
     }
 
     @Override
-    public T save(T object) {
-        return save(object.getId(), object);
-    }
-
-    public T save(ID id, T object) {
-        map.put(id, object);
+    public T save(@NotNull T object) {
+        if (object.getId() == null) {
+            object.setId(getNextId());
+        }
+        map.put(object.getId(), object);
         return object;
     }
 
@@ -44,5 +41,15 @@ public abstract class AbstractMapService<T extends BaseEntity<ID>, ID> implement
     @Override
     public void deleteAll() {
         map.clear();
+    }
+
+
+    private Long getNextId() {
+        if (map.keySet().isEmpty()) {
+            return 1L;
+        } else {
+            final Long max = Collections.max(map.keySet());
+            return max + 1L;
+        }
     }
 }

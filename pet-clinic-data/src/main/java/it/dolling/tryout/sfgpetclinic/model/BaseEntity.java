@@ -2,7 +2,7 @@ package it.dolling.tryout.sfgpetclinic.model;
 
 import java.io.Serializable;
 
-public class BaseEntity<ID> implements Serializable {
+public class BaseEntity<ID extends Long> implements Serializable {
 
     private ID id;
 
