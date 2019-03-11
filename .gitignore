@@ -72,6 +72,9 @@ local.properties
 /log/
 /target/
 */target/*
+pom.xml.releaseBackup
+*/pom.xml.releaseBackup
+release.properties
 
 ######################
 # Gradle
