@@ -1,6 +1,6 @@
 package it.dolling.tryout.sfgpetclinic.model;
 
-public class Person extends BaseEntity {
+public class Person extends BaseEntity<Long> {
 
     private String firstName;
     private String lastName;
