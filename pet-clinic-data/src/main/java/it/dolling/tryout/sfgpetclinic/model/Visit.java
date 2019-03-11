@@ -2,7 +2,7 @@ package it.dolling.tryout.sfgpetclinic.model;
 
 import java.time.LocalDate;
 
-public class Visit extends BaseEntity<Long> {
+public class Visit extends BaseEntity {
 
     private LocalDate date;
     private String description;
