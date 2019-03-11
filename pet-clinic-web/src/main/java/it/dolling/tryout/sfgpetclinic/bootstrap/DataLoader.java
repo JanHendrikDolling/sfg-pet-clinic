@@ -1,15 +1,17 @@
 package it.dolling.tryout.sfgpetclinic.bootstrap;
 
-import it.dolling.tryout.sfgpetclinic.model.Owner;
-import it.dolling.tryout.sfgpetclinic.model.PetType;
-import it.dolling.tryout.sfgpetclinic.model.Vet;
-import it.dolling.tryout.sfgpetclinic.services.OwnerService;
-import it.dolling.tryout.sfgpetclinic.services.PetTypeService;
-import it.dolling.tryout.sfgpetclinic.services.VetService;
+import it.dolling.tryout.sfgpetclinic.model.*;
+import it.dolling.tryout.sfgpetclinic.services.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+
+import java.time.LocalDate;
+import java.util.Collections;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Component
 public class DataLoader implements CommandLineRunner {
@@ -19,47 +21,98 @@ public class DataLoader implements CommandLineRunner {
     private final OwnerService ownerService;
     private final VetService vetService;
     private final PetTypeService petTypeService;
+    private final AddressService addressService;
+    private final ContactInformationService contactInformationservice;
+    private final PetService petService;
 
-    public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService) {
+    public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService, AddressService addressService, ContactInformationService contactInformationservice, PetService petService) {
         this.ownerService = ownerService;
         this.vetService = vetService;
         this.petTypeService = petTypeService;
+        this.addressService = addressService;
+        this.contactInformationservice = contactInformationservice;
+        this.petService = petService;
     }
 
     @Override
     public void run(String... args) throws Exception {
-
         PetType dog = createPetType("Dog");
         PetType cat = createPetType("Cat");
+        LOGGER.info("Loaded PetTypes...");
 
-        Owner michael = new Owner();
-        michael.setFirstName("Michael");
-        michael.setLastName("Weston");
-        ownerService.save(michael);
+        Address hamburg = createAddress("street hh", "HH");
+        Address berlin = createAddress("street Berlin", "Berlin");
+        LOGGER.info("Loaded Addresses...");
 
-        Owner fiona = new Owner();
-        fiona.setFirstName("Fiona");
-        fiona.setLastName("Glenanne");
-        ownerService.save(fiona);
+        ContactInformation michaelContactInfo = createContactInformation(hamburg, "1223");
+        ContactInformation fionaContactInfo = createContactInformation(berlin, "45678");
+        LOGGER.info("Loaded ContactInformations...");
 
+        Pet rosco = createPet(dog, "Rosco", LocalDate.now());
+        Pet selly = createPet(cat, "Selly", LocalDate.now());
+        LOGGER.info("Create Pets...");
+
+        Owner michael = createOwner(michaelContactInfo, "Michael", "Weston", Stream.of(rosco, selly).collect(Collectors.toSet()));
+        Owner fiona = createOwner(fionaContactInfo, "Fiona", "Glenanne");
         LOGGER.info("Loaded Owners...");
 
-        Vet sam = new Vet();
-        sam.setFirstName("Sam");
-        sam.setLastName("Axe");
-        vetService.save(sam);
+        Pet catty = createPet(cat, "Catty", LocalDate.now());
+        catty.setOwner(fiona);
+        petService.save(catty);
+        LOGGER.info("Loaded Pets...");
 
-        Vet jessie = new Vet();
-        jessie.setFirstName("Jessie");
-        jessie.setLastName("Porter");
-        vetService.save(jessie);
-
+        Vet sam = createVet("Sam", "Axe");
+        Vet jessie = createVet("Jessie", "Porter");
         LOGGER.info("Loaded Vets...");
     }
 
+
+    private Pet createPet(PetType dog, String name, LocalDate birthDate) {
+        Pet pet = new Pet();
+        pet.setPetType(dog);
+        pet.setBirthDate(birthDate);
+        pet.setName(name);
+        return pet;
+    }
+
+    private Vet createVet(String firstName, String lastName) {
+        Vet vet = new Vet();
+        vet.setFirstName(firstName);
+        vet.setLastName(lastName);
+        return vetService.save(vet);
+    }
+
+    private Owner createOwner(ContactInformation contactInformation, String firstName, String lastName) {
+        return createOwner(contactInformation, firstName, lastName, Collections.emptySet());
+    }
+
+    private Owner createOwner(ContactInformation contactInformation, String firstName, String lastName, Set<Pet> pets) {
+        Owner owner = new Owner();
+        owner.setFirstName(firstName);
+        owner.setLastName(lastName);
+        owner.setContactInformation(contactInformation);
+        owner.setPets(pets);
+        pets.forEach(pet -> pet.setOwner(owner));
+        return ownerService.save(owner);
+    }
+
+    private ContactInformation createContactInformation(Address address, String telephon) {
+        ContactInformation contactInformation = new ContactInformation();
+        contactInformation.setAddress(address);
+        contactInformation.setTelephone(telephon);
+        return contactInformationservice.save(contactInformation);
+    }
+
+    private Address createAddress(String street, String city) {
+        Address address = new Address();
+        address.setStreet(street);
+        address.setCity(city);
+        return addressService.save(address);
+    }
+
     private PetType createPetType(String name) {
-        PetType dog = new PetType();
-        dog.setName(name);
-        return petTypeService.save(dog);
+        PetType petType = new PetType();
+        petType.setName(name);
+        return petTypeService.save(petType);
     }
 }

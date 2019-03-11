@@ -2,9 +2,34 @@ package it.dolling.tryout.sfgpetclinic.services.map;
 
 import it.dolling.tryout.sfgpetclinic.model.Pet;
 import it.dolling.tryout.sfgpetclinic.services.PetService;
+import it.dolling.tryout.sfgpetclinic.services.PetTypeService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+
+import java.util.Objects;
 
 @Service
 public class PetServiceMap extends AbstractMapService<Pet, Long> implements PetService {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(PetServiceMap.class);
+
+    private final PetTypeService petTypeService;
+
+    public PetServiceMap(PetTypeService petTypeService) {
+        this.petTypeService = petTypeService;
+    }
+
+    @Override
+    public Pet save(Pet pet) {
+        Objects.requireNonNull(pet, "can't save null object");
+        if (pet.getPetType() != null) {
+            pet.setPetType(petTypeService.save(pet.getPetType()));
+        }
+        Pet savedPet = super.save(pet);
+        if (savedPet.getOwner() != null && savedPet.getOwner().getId() == null) {
+            LOGGER.warn("Owner {} not persisted!", savedPet.getOwner());
+        }
+        return pet;
+    }
 }
