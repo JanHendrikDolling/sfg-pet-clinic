@@ -1,6 +1,5 @@
 package it.dolling.tryout.sfgpetclinic.services.map;
 
-import com.sun.istack.internal.NotNull;
 import it.dolling.tryout.sfgpetclinic.model.BaseEntity;
 import it.dolling.tryout.sfgpetclinic.services.CrudService;
 
@@ -21,7 +20,8 @@ public abstract class AbstractMapService<T extends BaseEntity, ID extends Long> 
     }
 
     @Override
-    public T save(@NotNull T object) {
+    public T save(T object) {
+        Objects.requireNonNull(object, "can't save null object");
         if (object.getId() == null) {
             object.setId(getNextId());
         }
