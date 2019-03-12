@@ -1,8 +1,15 @@
 package it.dolling.tryout.sfgpetclinic.model;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name ="ContactInformations")
 public class ContactInformation extends BaseEntity {
 
+    @OneToOne(cascade = CascadeType.ALL)
     private Address address;
+
+    @Column(name = "telefone")
     private String telephone;
 
     public Address getAddress() {

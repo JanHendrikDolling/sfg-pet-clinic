@@ -1,8 +1,15 @@
 package it.dolling.tryout.sfgpetclinic.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+
+@Entity
 public class Address extends BaseEntity {
 
+    @Column(name = "street")
     private String street;
+
+    @Column(name = "city")
     private String city;
 
     public String getStreet() {
