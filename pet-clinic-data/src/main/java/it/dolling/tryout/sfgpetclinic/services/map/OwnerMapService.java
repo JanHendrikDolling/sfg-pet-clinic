@@ -13,12 +13,12 @@ import java.util.NoSuchElementException;
 import java.util.Set;
 
 @Service
-public class OwnerServiceMap extends AbstractMapService<Owner, Long> implements OwnerService {
+public class OwnerMapService extends AbstractMapService<Owner, Long> implements OwnerService {
 
     private final PetService petService;
     private final ContactInformationService contactInformationService;
 
-    public OwnerServiceMap(PetService petService, ContactInformationService contactInformationService) {
+    public OwnerMapService(PetService petService, ContactInformationService contactInformationService) {
         this.petService = petService;
         this.contactInformationService = contactInformationService;
     }

@@ -9,13 +9,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PetServiceMap extends AbstractMapService<Pet, Long> implements PetService {
+public class PetMapService extends AbstractMapService<Pet, Long> implements PetService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(PetServiceMap.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(PetMapService.class);
 
     private final PetTypeService petTypeService;
 
-    public PetServiceMap(PetTypeService petTypeService) {
+    public PetMapService(PetTypeService petTypeService) {
         this.petTypeService = petTypeService;
     }
 

@@ -5,5 +5,5 @@ import it.dolling.tryout.sfgpetclinic.services.AddressService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AddressServiceMap extends AbstractMapService<Address, Long> implements AddressService {
+public class AddressMapService extends AbstractMapService<Address, Long> implements AddressService {
 }

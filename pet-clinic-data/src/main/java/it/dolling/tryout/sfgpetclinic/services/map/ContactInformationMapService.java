@@ -7,11 +7,11 @@ import org.apache.commons.lang3.Validate;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ContactInformationServiceMap extends AbstractMapService<ContactInformation, Long> implements ContactInformationService {
+public class ContactInformationMapService extends AbstractMapService<ContactInformation, Long> implements ContactInformationService {
 
     private final AddressService addressService;
 
-    public ContactInformationServiceMap(AddressService addressService) {
+    public ContactInformationMapService(AddressService addressService) {
         this.addressService = addressService;
     }
 
