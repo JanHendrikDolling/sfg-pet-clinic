@@ -8,11 +8,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Profile("springdatajpa")
-public class OwnerJPAService extends AbstractJPAService<Owner, Long> implements OwnerService {
+public class OwnerJpaService extends AbstractJpaService<Owner, Long> implements OwnerService {
 
     private final OwnerRepository ownerRepository;
 
-    public OwnerJPAService(OwnerRepository ownerRepository) {
+    public OwnerJpaService(OwnerRepository ownerRepository) {
         super(ownerRepository);
         this.ownerRepository = ownerRepository;
     }

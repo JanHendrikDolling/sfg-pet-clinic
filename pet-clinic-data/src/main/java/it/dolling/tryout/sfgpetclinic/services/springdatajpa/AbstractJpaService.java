@@ -7,11 +7,11 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.HashSet;
 import java.util.Set;
 
-public abstract class AbstractJPAService<T extends BaseEntity, I extends Long> implements CrudService<T, I> {
+public abstract class AbstractJpaService<T extends BaseEntity, I extends Long> implements CrudService<T, I> {
 
     private final CrudRepository<T, I> repository;
 
-    public AbstractJPAService(CrudRepository<T, I> repository) {
+    public AbstractJpaService(CrudRepository<T, I> repository) {
         this.repository = repository;
     }
 
