@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 @Service
 @Profile("springdatajpa")
 public class VetJpaService extends AbstractJpaService<Vet, Long> implements VetService {
-
     public VetJpaService(VetRepository vetRepository) {
         super(vetRepository);
     }

@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 @Service
 @Profile("springdatajpa")
 public class PetTypeJpaService extends AbstractJpaService<PetType, Long> implements PetTypeService {
-
     public PetTypeJpaService(PetTypeRepository petTypeRepository) {
         super(petTypeRepository);
     }

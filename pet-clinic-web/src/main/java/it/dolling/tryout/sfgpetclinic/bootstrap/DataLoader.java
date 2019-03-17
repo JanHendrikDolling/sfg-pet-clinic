@@ -25,8 +25,9 @@ public class DataLoader implements CommandLineRunner {
     private final ContactInformationService contactInformationservice;
     private final PetService petService;
     private final SpecialityService specialityService;
+    private final VisitService visitService;
 
-    public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService, AddressService addressService, ContactInformationService contactInformationservice, PetService petService, SpecialityService specialityService) {
+    public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService, AddressService addressService, ContactInformationService contactInformationservice, PetService petService, SpecialityService specialityService, VisitService visitService) {
         this.ownerService = ownerService;
         this.vetService = vetService;
         this.petTypeService = petTypeService;
@@ -34,6 +35,7 @@ public class DataLoader implements CommandLineRunner {
         this.contactInformationservice = contactInformationservice;
         this.petService = petService;
         this.specialityService = specialityService;
+        this.visitService = visitService;
     }
 
     @Override
@@ -79,6 +81,14 @@ public class DataLoader implements CommandLineRunner {
         Vet sam = createVet("Sam", "Axe", Stream.of(radiology).collect(Collectors.toSet()));
         Vet jessie = createVet("Jessie", "Porter", Stream.of(surgery).collect(Collectors.toSet()));
         LOGGER.info("Loaded Vets...");
+
+
+        Visit catVisit = new Visit();
+        catVisit.setPet(catty);
+        catVisit.setDate(LocalDate.now());
+        catVisit.setDescription("Sneezy Kitty");
+        visitService.save(catVisit);
+        LOGGER.info("Loaded Visits...");
     }
 
     private Speciality getSpeciality(String radiology) {
