@@ -26,7 +26,7 @@ public class Owner extends Person {
         this.pets = pets;
     }
 
-    boolean isValid() {
-        return getId() != null;
+    boolean isInvalid() {
+        return getId() == null;
     }
 }

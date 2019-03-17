@@ -11,7 +11,7 @@ public class VisitMapService extends AbstractMapService<Visit, Long> implements 
 
     @Override
     public Visit save(Visit visit){
-        if(!visit.isValid()){
+        if(visit.isInvalid()){
             throw new IllegalArgumentException("Visit is invalid.");
         }
         return super.save(visit);

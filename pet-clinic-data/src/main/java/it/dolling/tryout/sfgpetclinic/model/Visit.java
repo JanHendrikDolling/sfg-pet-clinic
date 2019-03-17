@@ -24,8 +24,8 @@ public class Visit extends BaseEntity {
     @JoinColumn(name = "pet_id")
     private Pet pet;
 
-    public boolean isValid() {
-        return getPet() != null && getPet().isValid();
+    public boolean isInvalid() {
+        return getPet() == null || getPet().isInvalid();
     }
 
 }

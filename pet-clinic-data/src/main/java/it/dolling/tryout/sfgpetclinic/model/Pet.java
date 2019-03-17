@@ -33,8 +33,8 @@ public class Pet extends BaseEntity {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "pet")
     private Set<Visit> visits = new HashSet<>();
 
-    boolean isValid() {
-        return getId() != null && getOwner() != null && getOwner().isValid();
+    boolean isInvalid() {
+        return getId() == null || getOwner() == null || getOwner().isInvalid();
     }
 
 }
