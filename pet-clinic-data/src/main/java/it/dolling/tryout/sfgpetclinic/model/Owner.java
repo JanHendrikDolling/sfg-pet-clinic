@@ -1,8 +1,14 @@
 package it.dolling.tryout.sfgpetclinic.model;
 
+import lombok.*;
+
 import javax.persistence.*;
 import java.util.Set;
 
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "owners")
 public class Owner extends Person {
@@ -13,19 +19,10 @@ public class Owner extends Person {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
     private Set<Pet> pets;
 
-    public ContactInformation getContactInformation() {
-        return contactInformation;
-    }
-
-    public void setContactInformation(ContactInformation contactInformation) {
+    @Builder
+    public Owner(String firstName, String lastName, ContactInformation contactInformation, Set<Pet> pets) {
+        super(firstName, lastName);
         this.contactInformation = contactInformation;
-    }
-
-    public Set<Pet> getPets() {
-        return pets;
-    }
-
-    public void setPets(Set<Pet> pets) {
         this.pets = pets;
     }
 

@@ -1,8 +1,15 @@
 package it.dolling.tryout.sfgpetclinic.model;
 
+import lombok.*;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 public class Address extends BaseEntity {
 
@@ -12,19 +19,4 @@ public class Address extends BaseEntity {
     @Column(name = "city")
     private String city;
 
-    public String getStreet() {
-        return street;
-    }
-
-    public void setStreet(String street) {
-        this.street = street;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
 }

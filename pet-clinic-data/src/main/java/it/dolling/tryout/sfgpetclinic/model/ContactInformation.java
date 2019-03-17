@@ -1,7 +1,14 @@
 package it.dolling.tryout.sfgpetclinic.model;
 
+import lombok.*;
+
 import javax.persistence.*;
 
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name ="ContactInformations")
 public class ContactInformation extends BaseEntity {
@@ -12,19 +19,4 @@ public class ContactInformation extends BaseEntity {
     @Column(name = "telefone")
     private String telephone;
 
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
-    public String getTelephone() {
-        return telephone;
-    }
-
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
-    }
 }
