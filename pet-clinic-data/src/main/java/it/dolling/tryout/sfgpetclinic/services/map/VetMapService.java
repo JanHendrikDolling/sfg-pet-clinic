@@ -5,12 +5,14 @@ import it.dolling.tryout.sfgpetclinic.model.Vet;
 import it.dolling.tryout.sfgpetclinic.services.SpecialityService;
 import it.dolling.tryout.sfgpetclinic.services.VetService;
 import org.apache.commons.lang3.Validate;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Service
+@Profile({"default", "map"})
 public class VetMapService extends AbstractMapService<Vet, Long> implements VetService {
 
     private final SpecialityService specialityService;

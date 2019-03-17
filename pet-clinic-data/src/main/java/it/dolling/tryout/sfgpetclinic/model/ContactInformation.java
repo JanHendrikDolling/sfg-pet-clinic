@@ -6,7 +6,7 @@ import javax.persistence.*;
 @Table(name ="ContactInformations")
 public class ContactInformation extends BaseEntity {
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     private Address address;
 
     @Column(name = "telefone")

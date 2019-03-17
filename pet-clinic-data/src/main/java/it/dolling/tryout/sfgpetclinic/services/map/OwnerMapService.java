@@ -6,6 +6,7 @@ import it.dolling.tryout.sfgpetclinic.services.ContactInformationService;
 import it.dolling.tryout.sfgpetclinic.services.OwnerService;
 import it.dolling.tryout.sfgpetclinic.services.PetService;
 import org.apache.commons.lang3.Validate;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -13,6 +14,7 @@ import java.util.NoSuchElementException;
 import java.util.Set;
 
 @Service
+@Profile({"default", "map"})
 public class OwnerMapService extends AbstractMapService<Owner, Long> implements OwnerService {
 
     private final PetService petService;

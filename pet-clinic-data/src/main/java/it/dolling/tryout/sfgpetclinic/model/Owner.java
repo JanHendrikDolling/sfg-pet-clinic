@@ -7,7 +7,7 @@ import java.util.Set;
 @Table(name = "owners")
 public class Owner extends Person {
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     private ContactInformation contactInformation;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
