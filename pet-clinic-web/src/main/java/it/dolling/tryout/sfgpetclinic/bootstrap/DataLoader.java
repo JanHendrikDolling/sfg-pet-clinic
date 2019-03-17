@@ -82,13 +82,16 @@ public class DataLoader implements CommandLineRunner {
         Vet jessie = createVet("Jessie", "Porter", Stream.of(surgery).collect(Collectors.toSet()));
         LOGGER.info("Loaded Vets...");
 
-
-        Visit catVisit = new Visit();
-        catVisit.setPet(catty);
-        catVisit.setDate(LocalDate.now());
-        catVisit.setDescription("Sneezy Kitty");
-        visitService.save(catVisit);
+        Visit cattyVisit = createVisit(catty, LocalDate.now(), "Sneezy Kitty");
         LOGGER.info("Loaded Visits...");
+    }
+
+    private Visit createVisit(Pet pet, LocalDate localDate, String description) {
+        Visit catVisit = new Visit();
+        catVisit.setPet(pet);
+        catVisit.setDate(localDate);
+        catVisit.setDescription(description);
+        return visitService.save(catVisit);
     }
 
     private Speciality getSpeciality(String radiology) {
@@ -96,7 +99,6 @@ public class DataLoader implements CommandLineRunner {
         speciality.setDescription(radiology);
         return specialityService.save(speciality);
     }
-
 
     private Pet createPet(PetType dog, String name, LocalDate birthDate) {
         Pet pet = new Pet();
