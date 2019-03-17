@@ -40,4 +40,9 @@ public class Visit extends BaseEntity {
     public void setPet(Pet pet) {
         this.pet = pet;
     }
+
+    public boolean isValid() {
+        return getPet() != null && getPet().isValid();
+    }
+
 }
