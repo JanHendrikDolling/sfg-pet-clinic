@@ -21,7 +21,7 @@ import javax.persistence.Table;
 @Table(name ="ContactInformations")
 public class ContactInformation extends BaseEntity {
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REMOVE)
     private Address address;
 
     @Column(name = "telefone")
