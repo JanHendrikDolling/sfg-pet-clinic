@@ -1,7 +1,21 @@
 package it.dolling.tryout.sfgpetclinic.bootstrap;
 
-import it.dolling.tryout.sfgpetclinic.model.*;
-import it.dolling.tryout.sfgpetclinic.services.*;
+import it.dolling.tryout.sfgpetclinic.model.Address;
+import it.dolling.tryout.sfgpetclinic.model.ContactInformation;
+import it.dolling.tryout.sfgpetclinic.model.Owner;
+import it.dolling.tryout.sfgpetclinic.model.Pet;
+import it.dolling.tryout.sfgpetclinic.model.PetType;
+import it.dolling.tryout.sfgpetclinic.model.Speciality;
+import it.dolling.tryout.sfgpetclinic.model.Vet;
+import it.dolling.tryout.sfgpetclinic.model.Visit;
+import it.dolling.tryout.sfgpetclinic.services.AddressService;
+import it.dolling.tryout.sfgpetclinic.services.ContactInformationService;
+import it.dolling.tryout.sfgpetclinic.services.OwnerService;
+import it.dolling.tryout.sfgpetclinic.services.PetService;
+import it.dolling.tryout.sfgpetclinic.services.PetTypeService;
+import it.dolling.tryout.sfgpetclinic.services.SpecialityService;
+import it.dolling.tryout.sfgpetclinic.services.VetService;
+import it.dolling.tryout.sfgpetclinic.services.VisitService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -79,7 +93,7 @@ public class DataLoader implements CommandLineRunner {
         LOGGER.info("Loaded Pets...");
 
         Vet sam = createVet("Sam", "Axe", Stream.of(radiology).collect(Collectors.toSet()));
-        Vet jessie = createVet("Jessie", "Porter", Stream.of(surgery).collect(Collectors.toSet()));
+        Vet jessie = createVet("Jessie2", "Porter", Stream.of(surgery).collect(Collectors.toSet()));
         LOGGER.info("Loaded Vets...");
 
         Visit cattyVisit = createVisit(catty, LocalDate.now(), "Sneezy Kitty");

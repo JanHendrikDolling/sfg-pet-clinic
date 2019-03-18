@@ -4,7 +4,11 @@ import it.dolling.tryout.sfgpetclinic.model.BaseEntity;
 import it.dolling.tryout.sfgpetclinic.services.CrudService;
 import org.apache.commons.lang3.Validate;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 public abstract class AbstractMapService<T extends BaseEntity, I extends Long> implements CrudService<T, I> {
 
