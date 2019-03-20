@@ -8,6 +8,7 @@ import it.dolling.tryout.sfgpetclinic.services.PetService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -37,13 +38,14 @@ class OwnerMapServiceTest {
     @Mock
     ContactInformationService contactInformationService;
 
+    @InjectMocks
     private OwnerMapService ownerMapService;
+
     private Owner.OwnerBuilder ownerBuilder;
 
     @BeforeEach
     void setUp(){
         // given
-        ownerMapService = new OwnerMapService(petService, contactInformationService);
         ownerBuilder = Owner.builder().firstName(FIST_NAME).lastName(LAST_NAME);
     }
 
