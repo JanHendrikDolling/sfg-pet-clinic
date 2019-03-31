@@ -1,6 +1,5 @@
 package it.dolling.tryout.sfgpetclinic.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,7 +15,6 @@ import java.util.Set;
 @Setter
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name = "owners")
 public class Owner extends Person {
@@ -28,8 +26,8 @@ public class Owner extends Person {
     private Set<Pet> pets;
 
     @Builder
-    public Owner(String firstName, String lastName, ContactInformation contactInformation, Set<Pet> pets) {
-        super(firstName, lastName);
+    public Owner(Long id, String firstName, String lastName, ContactInformation contactInformation, Set<Pet> pets) {
+        super(id, firstName, lastName);
         this.contactInformation = contactInformation;
         this.pets = pets;
     }

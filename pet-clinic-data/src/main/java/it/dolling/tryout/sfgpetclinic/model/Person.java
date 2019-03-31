@@ -21,4 +21,10 @@ public class Person extends BaseEntity {
     @Column(name = "last_name")
     protected String lastName;
 
+    public Person(Long id, String firstName, String lastName){
+        super(id);
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
 }
