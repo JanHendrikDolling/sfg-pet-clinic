@@ -5,11 +5,13 @@ import it.dolling.tryout.sfgpetclinic.model.Pet;
 import it.dolling.tryout.sfgpetclinic.services.ContactInformationService;
 import it.dolling.tryout.sfgpetclinic.services.OwnerService;
 import it.dolling.tryout.sfgpetclinic.services.PetService;
+import org.apache.commons.lang3.NotImplementedException;
 import org.apache.commons.lang3.Validate;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
@@ -46,5 +48,10 @@ public class OwnerMapService extends AbstractMapService<Owner, Long> implements 
     @Override
     public Owner findByLastName(String lastName) {
         return findAll().stream().filter(entry -> entry.getLastName().equals(lastName)).findFirst().orElseThrow(NoSuchElementException::new);
+    }
+
+    @Override
+    public List<Owner> findAllByLastNameLike(String lastName) {
+        throw new NotImplementedException("has to be done");
     }
 }
